@@ -1,9 +1,9 @@
 class Api::TasksController < ApplicationController
-  before_action :authenticate_user
+  # before_action :authenticate_user
 
   def index
-    # @tasks = Task.all
-    @tasks = current_user.tasks
+    @tasks = Task.all
+    # @tasks = current_user.tasks
 
     render "index.json.jbuilder"
   end
@@ -20,7 +20,7 @@ class Api::TasksController < ApplicationController
       task: params["input_task"],
       notes: params["input_notes"],
       priority: params["input_priority"],
-      status: params["input_status"],
+      completed: params["input_completed"],
       user_id: params["input_userid"]
       )
     if @task.save
@@ -35,7 +35,7 @@ class Api::TasksController < ApplicationController
     @task.task = params["input_task"] || @task.task
     @task.notes = params["input_notes"] || @task.notes
     @task.priority = params["input_priority"] || @task.priority
-    @task.status = params["input_status"] || @task.status
+    @task.completed = params["input_completed"] || @task.completed
     if @task.save
       render "show.json.jbuilder"
     else 
