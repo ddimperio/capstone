@@ -3,7 +3,7 @@ class Api::TasksController < ApplicationController
 
   def index
     # @tasks = Task.all
-    @tasks = current_user.tasks
+    @tasks = current_user.tasks.order(:priority => :desc)
 
     render "index.json.jbuilder"
   end
@@ -47,5 +47,18 @@ class Api::TasksController < ApplicationController
     @task = Task.find_by(id: params[:id])
     @task.destroy
     render json: {message: "Task has been deleted"}
+  end
+
+  def sort
+    tasks = params[:_json]
+    task_length = tasks.length
+
+    tasks.each do |task|
+      real_task = Task.find_by(id: task['id'])
+      real_task.priority = task_length
+      real_task.save
+      task_length-=1
+    end 
+
   end
 end
