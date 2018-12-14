@@ -9,5 +9,6 @@ Rails.application.routes.draw do
     delete "tasks/:id" => "tasks#destroy"
     post "/users" => "users#create"
     post "/sessions" => "sessions#create"
+    post "/slack" => "slacks#create"
   end
 end

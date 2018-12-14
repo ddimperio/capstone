@@ -48,8 +48,9 @@ class Api::TasksController < ApplicationController
     @task.destroy
     render json: {message: "Task has been deleted"}
   end
-
+  
   def sort
+
     tasks = params[:_json]
     task_length = tasks.length
 
@@ -60,5 +61,6 @@ class Api::TasksController < ApplicationController
       task_length-=1
     end 
 
+    render json: {message: tasks}
   end
 end
